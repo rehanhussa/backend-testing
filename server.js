@@ -29,9 +29,9 @@ mongoose.connection
 // Models
 ////////////////////////////////
 const CatSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  title: String,
+  breed: String,
+  description: String,
+  age: Number,
 }, { timestamps: true });
 
 const Cat = mongoose.model('Cat', CatSchema);
@@ -53,7 +53,7 @@ app.get('/', (req, res) => {
 });
 
 // Index Route
-app.get('/cat', async (req, res) => {
+app.get('/cats', async (req, res) => {
   try {
     res.status(200).json(await Cat.find({}));
   } catch (error) {
@@ -63,7 +63,7 @@ app.get('/cat', async (req, res) => {
 
 
 // Create Route
-app.post('/cat', async (req, res) => {
+app.post('/cats', async (req, res) => {
   try {
     res.status(201).json(await Cat.create(req.body));
   } catch (error) {
@@ -72,7 +72,7 @@ app.post('/cat', async (req, res) => {
 });
 
 // Delete Route
-app.delete('/cat/:id', async (req, res) => {
+app.delete('/cats/:id', async (req, res) => {
   try {
     res.status(200).json(await Cat.findByIdAndDelete(req.params.id));
   } catch (error) {
@@ -81,7 +81,7 @@ app.delete('/cat/:id', async (req, res) => {
 })
 
 // Update Route
-app.put('/cat/:id', async (req, res) => {
+app.put('/cats/:id', async (req, res) => {
   try {
     res.status(200).json(
       await Cat.findByIdAndUpdate(req.params.id, req.body, { new: true })
