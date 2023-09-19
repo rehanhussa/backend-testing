@@ -28,13 +28,13 @@ mongoose.connection
 ///////////////////////////////
 // Models
 ////////////////////////////////
-const PeopleSchema = new mongoose.Schema({
-  name: String,
-  image: String,
-  title: String,
+const CatSchema = new mongoose.Schema({
+  breed: String,
+  description: String,
+  age: Number,
 }, { timestamps: true });
 
-const People = mongoose.model('People', PeopleSchema);
+const Cat = mongoose.model('Cat', CatSchema);
 
 ///////////////////////////////
 // Mount Middleware
@@ -53,9 +53,9 @@ app.get('/', (req, res) => {
 });
 
 // Index Route
-app.get('/people', async (req, res) => {
+app.get('/cats', async (req, res) => {
   try {
-    res.status(200).json(await People.find({}));
+    res.status(200).json(await Cat.find({}));
   } catch (error) {
     res.status(400).json({ message: 'something went wrong' });
   }
@@ -63,28 +63,28 @@ app.get('/people', async (req, res) => {
 
 
 // Create Route
-app.post('/people', async (req, res) => {
+app.post('/cats', async (req, res) => {
   try {
-    res.status(201).json(await People.create(req.body));
+    res.status(201).json(await Cat.create(req.body));
   } catch (error) {
     res.status(400).json({ message: 'something went wrong' });
   }
 });
 
 // Delete Route
-app.delete('/people/:id', async (req, res) => {
+app.delete('/cats/:id', async (req, res) => {
   try {
-    res.status(200).json(await People.findByIdAndDelete(req.params.id));
+    res.status(200).json(await Cat.findByIdAndDelete(req.params.id));
   } catch (error) {
     res.status(400).json({ message: 'something went wrong' });
   }
 })
 
 // Update Route
-app.put('/people/:id', async (req, res) => {
+app.put('/cats/:id', async (req, res) => {
   try {
     res.status(200).json(
-      await People.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      await Cat.findByIdAndUpdate(req.params.id, req.body, { new: true })
     );
   } catch (error) {
     res.status(400).json({ message: 'something went wrong' });
